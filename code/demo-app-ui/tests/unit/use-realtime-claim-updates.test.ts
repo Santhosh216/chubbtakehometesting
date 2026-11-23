@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { renderHook, act, waitFor } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { useRealtimeClaimUpdates, type WebSocketMessage } from '@/src/features/claims/hooks/use-realtime-claim-updates';
 import { useAuthStore } from '@/src/features/auth/stores/use-auth-store';
 
@@ -41,6 +41,12 @@ class MockWebSocket {
   }
 }
 
+function startScheduledConnection() {
+  act(() => {
+    vi.advanceTimersByTime(0);
+  });
+}
+
 describe('useRealtimeClaimUpdates', () => {
   beforeEach(() => {
     vi.useFakeTimers();
@@ -66,6 +72,7 @@ describe('useRealtimeClaimUpdates', () => {
     });
 
     renderHook(() => useRealtimeClaimUpdates());
+    startScheduledConnection();
     expect(MockWebSocket.instances).toHaveLength(1);
     expect(MockWebSocket.instances[0].url).toContain('/api/ws/claims');
   });
@@ -77,6 +84,7 @@ describe('useRealtimeClaimUpdates', () => {
     });
 
     const { result } = renderHook(() => useRealtimeClaimUpdates());
+    startScheduledConnection();
 
     act(() => {
       MockWebSocket.instances[0].simulateOpen();
@@ -95,6 +103,7 @@ describe('useRealtimeClaimUpdates', () => {
 
     const onMessage = vi.fn();
     const { result } = renderHook(() => useRealtimeClaimUpdates(onMessage));
+    startScheduledConnection();
 
     act(() => {
       MockWebSocket.instances[0].simulateOpen();
@@ -124,6 +133,7 @@ describe('useRealtimeClaimUpdates', () => {
     });
 
     const { result } = renderHook(() => useRealtimeClaimUpdates());
+    startScheduledConnection();
 
     act(() => {
       MockWebSocket.instances[0].simulateOpen();
@@ -151,6 +161,7 @@ describe('useRealtimeClaimUpdates', () => {
     });
 
     const { result } = renderHook(() => useRealtimeClaimUpdates());
+    startScheduledConnection();
 
     // Exhaust all 5 retries
     for (let i = 0; i < 6; i++) {
@@ -178,6 +189,7 @@ describe('useRealtimeClaimUpdates', () => {
     });
 
     const { result } = renderHook(() => useRealtimeClaimUpdates());
+    startScheduledConnection();
 
     // Connect, disconnect, reconnect
     act(() => {
@@ -204,6 +216,7 @@ describe('useRealtimeClaimUpdates', () => {
     });
 
     const { unmount } = renderHook(() => useRealtimeClaimUpdates());
+    startScheduledConnection();
 
     act(() => {
       MockWebSocket.instances[0].simulateOpen();
@@ -212,6 +225,10 @@ describe('useRealtimeClaimUpdates', () => {
     unmount();
 
     expect(MockWebSocket.instances[0].readyState).toBe(3); // CLOSED
+    act(() => {
+      vi.advanceTimersByTime(1000);
+    });
+    expect(MockWebSocket.instances).toHaveLength(1);
   });
 
   it('logs error when receiving invalid JSON message', () => {
@@ -223,6 +240,7 @@ describe('useRealtimeClaimUpdates', () => {
     });
 
     renderHook(() => useRealtimeClaimUpdates());
+    startScheduledConnection();
 
     act(() => {
       MockWebSocket.instances[0].simulateOpen();
@@ -253,6 +271,7 @@ describe('useRealtimeClaimUpdates', () => {
     });
 
     renderHook(() => useRealtimeClaimUpdates());
+    startScheduledConnection();
 
     act(() => {
       MockWebSocket.instances[0].simulateOpen();

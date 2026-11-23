@@ -1,7 +1,10 @@
 import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useUsersStore } from './use-users-store';
-import { adminDashboardApi } from '@/src/lib/api/bff-client';
+import {
+  adminDashboardApi,
+  type UserResponse,
+} from '@/src/lib/api/bff-client';
 import { ResponseError } from '@/src/lib/api/generated/runtime';
 
 vi.mock('@/src/lib/api/bff-client', () => ({
@@ -33,17 +36,29 @@ describe('useUsersStore', () => {
 
   describe('fetchUsers', () => {
     it('should fetch and sort users by createdAt descending', async () => {
-      const older = { id: '1', createdAt: '2025-01-01T00:00:00Z' };
-      const newer = { id: '2', createdAt: '2025-06-01T00:00:00Z' };
-      vi.mocked(adminDashboardApi.listAllUsers).mockResolvedValue([older, newer] as any);
+      const older: UserResponse = {
+        userId: '1',
+        email: 'older@example.com',
+        name: 'Older User',
+        role: 'CLAIMANT',
+        createdAt: new Date('2025-01-01T00:00:00Z'),
+      };
+      const newer: UserResponse = {
+        userId: '2',
+        email: 'newer@example.com',
+        name: 'Newer User',
+        role: 'CLAIMANT',
+        createdAt: new Date('2025-06-01T00:00:00Z'),
+      };
+      vi.mocked(adminDashboardApi.listAllUsers).mockResolvedValue([older, newer]);
 
       const { result } = renderHook(() => useUsersStore());
       await act(async () => {
         await result.current.fetchUsers();
       });
 
-      expect(result.current.users[0].id).toBe('2');
-      expect(result.current.users[1].id).toBe('1');
+      expect(result.current.users[0].userId).toBe('2');
+      expect(result.current.users[1].userId).toBe('1');
       expect(result.current.isLoading).toBe(false);
     });
 

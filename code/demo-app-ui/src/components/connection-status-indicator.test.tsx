@@ -2,10 +2,15 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 const mockConnectionState = vi.fn().mockReturnValue('disconnected');
-const mockConnectionError = vi.fn().mockReturnValue(null);
+const mockConnectionError = vi.fn().mockReturnValue(false);
+
+interface RealtimeStateForIndicator {
+  connectionState: 'connected' | 'disconnected' | 'reconnecting';
+  connectionError: boolean;
+}
 
 vi.mock('@/src/features/claims/stores/use-realtime-store', () => ({
-  useRealtimeStore: (selector: (s: any) => any) => {
+  useRealtimeStore: (selector: (state: RealtimeStateForIndicator) => unknown) => {
     const state = {
       connectionState: mockConnectionState(),
       connectionError: mockConnectionError(),
@@ -19,7 +24,7 @@ import { ConnectionStatusIndicator } from './connection-status-indicator';
 describe('ConnectionStatusIndicator', () => {
   beforeEach(() => {
     mockConnectionState.mockReturnValue('disconnected');
-    mockConnectionError.mockReturnValue(null);
+    mockConnectionError.mockReturnValue(false);
   });
 
   it('shows "Offline" when disconnected', () => {
@@ -40,7 +45,7 @@ describe('ConnectionStatusIndicator', () => {
   });
 
   it('shows "Offline" with error message when connection error exists', () => {
-    mockConnectionError.mockReturnValue('Max retries reached');
+    mockConnectionError.mockReturnValue(true);
     render(<ConnectionStatusIndicator />);
     expect(screen.getByRole('status')).toHaveTextContent('Offline');
     expect(screen.getByRole('status')).toHaveAttribute(

@@ -1,0 +1,118 @@
+<testsuites id="" name="" tests="14" failures="0" skipped="0" errors="0" time="68.04974299999999">
+<testsuite name="api\claims.api.spec.ts" timestamp="2026-11-23T09:21:12.856Z" hostname="chromium" tests="4" failures="0" skipped="0" time="1.747" errors="0">
+<testcase name="Claims API contract (requires live stack) › API_001 - list claims has successful status and JSON response" classname="api\claims.api.spec.ts" time="1.105">
+</testcase>
+<testcase name="Claims API contract (requires live stack) › API_002 - missing authorization is rejected" classname="api\claims.api.spec.ts" time="0.059">
+</testcase>
+<testcase name="Claims API contract (requires live stack) › API_003 - invalid claim identifier is rejected or not found" classname="api\claims.api.spec.ts" time="0.136">
+</testcase>
+<testcase name="Claims API contract (requires live stack) › API_004 - missing required fields are rejected" classname="api\claims.api.spec.ts" time="0.447">
+</testcase>
+</testsuite>
+<testsuite name="claims.spec.ts" timestamp="2026-11-23T09:21:12.856Z" hostname="chromium" tests="6" failures="0" skipped="0" time="35.374" errors="0">
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_001 - Empty incident details prevent navigation" classname="claims.spec.ts" time="10.019">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----154e3--details-prevent-navigation-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----154e3--details-prevent-navigation-chromium\attachments\final-page-b19e71e9f91d9a452e434a33f6b88c6f0cbb420a.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----154e3--details-prevent-navigation-chromium\video.webm]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_002 - Valid incident details navigate to Step 2" classname="claims.spec.ts" time="5.425">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----4fe7d--details-navigate-to-Step-2-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----4fe7d--details-navigate-to-Step-2-chromium\attachments\final-page-0ad26bba4c3e644c185fbe8c63efe34037ab8206.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----4fe7d--details-navigate-to-Step-2-chromium\video.webm]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_004 - Description validation prevents invalid input" classname="claims.spec.ts" time="5.133">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----32274-tion-prevents-invalid-input-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----32274-tion-prevents-invalid-input-chromium\attachments\final-page-ba97b65a6335ed836aa01aa1833c7a34d9e8a95d.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----32274-tion-prevents-invalid-input-chromium\video.webm]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_005 - Back navigation preserves incident details" classname="claims.spec.ts" time="4.374">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----2ab7e--preserves-incident-details-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----2ab7e--preserves-incident-details-chromium\attachments\final-page-753e11a7ae24a49839534551732d73fbaa0f51c1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----2ab7e--preserves-incident-details-chromium\video.webm]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_006 - Review screen displays entered claim details" classname="claims.spec.ts" time="4.804">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----eac9b-plays-entered-claim-details-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----eac9b-plays-entered-claim-details-chromium\attachments\final-page-6aff9cae0be2b402141ebe07d5ef5e27bc021603.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----eac9b-plays-entered-claim-details-chromium\video.webm]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_007 - Claimant successfully submits a claim" classname="claims.spec.ts" time="5.619">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----46b98-uccessfully-submits-a-claim-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----46b98-uccessfully-submits-a-claim-chromium\attachments\final-page-cf97b6742d0137b0c4e91d4539db23889cb37ad9.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----46b98-uccessfully-submits-a-claim-chromium\video.webm]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="login.spec.ts" timestamp="2026-11-23T09:21:12.856Z" hostname="chromium" tests="4" failures="0" skipped="0" time="11.082" errors="0">
+<testcase name="Login Page - Authentication Validation › TC_AUTH_001 - Login page displays required elements" classname="login.spec.ts" time="1.786">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-6d6f3--displays-required-elements-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-6d6f3--displays-required-elements-chromium\video.webm]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Login Page - Authentication Validation › TC_AUTH_002 - Empty login form displays validation errors" classname="login.spec.ts" time="2.15">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-54eb9--displays-validation-errors-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-54eb9--displays-validation-errors-chromium\video.webm]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Login Page - Authentication Validation › TC_AUTH_003 - Expired session displays an error message" classname="login.spec.ts" time="3.351">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-c388d-n-displays-an-error-message-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-c388d-n-displays-an-error-message-chromium\video.webm]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Login Page - Authentication Validation › TC_AUTH_004 - Claimant successfully logs in and accesses claims page" classname="login.spec.ts" time="3.795">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-9327a-in-and-accesses-claims-page-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-9327a-in-and-accesses-claims-page-chromium\video.webm]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

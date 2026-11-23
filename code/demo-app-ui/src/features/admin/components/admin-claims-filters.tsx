@@ -17,10 +17,6 @@ export const AdminClaimsFilters = () => {
   const [localSearch, setLocalSearch] = useState(searchQuery);
   const debounceRef = useRef<number | undefined>(undefined);
 
-  useEffect(() => {
-    setLocalSearch(searchQuery);
-  }, [searchQuery]);
-
   const handleSearchChange = useCallback((value: string) => {
     setLocalSearch(value);
     if (debounceRef.current !== undefined) {
@@ -38,6 +34,15 @@ export const AdminClaimsFilters = () => {
       }
     };
   }, []);
+
+  const handleClearFilters = useCallback(() => {
+    if (debounceRef.current !== undefined) {
+      clearTimeout(debounceRef.current);
+      debounceRef.current = undefined;
+    }
+    setLocalSearch('');
+    clearFilters();
+  }, [clearFilters]);
 
   const hasActiveFilters = statusFilter !== null || searchQuery !== '';
 
@@ -82,7 +87,7 @@ export const AdminClaimsFilters = () => {
 
       {hasActiveFilters && (
         <button
-          onClick={clearFilters}
+          onClick={handleClearFilters}
           className="text-sm font-medium text-link underline hover:text-link-hover"
         >
           Clear Filters

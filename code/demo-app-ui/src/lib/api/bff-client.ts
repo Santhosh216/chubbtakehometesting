@@ -11,12 +11,13 @@ import {
   ClaimsApi,
   AdminDashboardApi,
 } from './generated';
+import type { Middleware } from './generated/runtime';
 
 function resolveBffBasePath(): string {
   if (process.env.USE_WIREMOCK_BFF === 'true') {
     return process.env.NEXT_PUBLIC_BFF_STUB_URL || 'http://localhost:8080';
   }
-  return process.env.NEXT_PUBLIC_BFF_URL || 'http://localhost:8080';
+  return process.env.NEXT_PUBLIC_BFF_URL || 'http://localhost:8090';
 }
 
 /**
@@ -31,16 +32,15 @@ function getCsrfToken(): string | null {
 /**
  * Middleware to add CSRF token to requests
  */
-const csrfMiddleware = {
-  pre: async (context: any) => {
+const csrfMiddleware: Middleware = {
+  pre: async (context) => {
     const csrfToken = getCsrfToken();
     if (csrfToken) {
-      context.init.headers = {
-        ...context.init.headers,
-        'X-XSRF-TOKEN': csrfToken,
-      };
+      const headers = new Headers(context.init.headers);
+      headers.set('X-XSRF-TOKEN', csrfToken);
+      context.init = { ...context.init, headers };
     }
-    return context;
+    return { url: context.url, init: context.init };
   },
 };
 
@@ -78,7 +78,7 @@ async function fetchWithAuth(input: RequestInfo | URL, init?: RequestInit): Prom
               credentials: 'include',
             });
             return refreshResponse.ok;
-          } catch (error) {
+          } catch {
             return false;
           } finally {
             isRefreshing = false;

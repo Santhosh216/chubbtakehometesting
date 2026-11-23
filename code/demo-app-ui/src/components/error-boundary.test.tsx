@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi } from 'vitest';
+import { afterAll, beforeAll, describe, it, expect, vi } from 'vitest';
 import { ErrorBoundary } from './error-boundary';
 
 // Component that throws an error

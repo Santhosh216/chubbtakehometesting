@@ -3,7 +3,7 @@
 import type { ClaimStatus } from '@/src/lib/api/bff-client';
 
 interface ClaimStatusBadgeProps {
-  status: ClaimStatus;
+  status: string;
 }
 
 const statusConfig: Record<
@@ -38,7 +38,9 @@ const statusConfig: Record<
 };
 
 export const ClaimStatusBadge = ({ status }: ClaimStatusBadgeProps) => {
-  const config = statusConfig[status];
+  const config = Object.hasOwn(statusConfig, status)
+    ? statusConfig[status as ClaimStatus]
+    : undefined;
 
   // Type safety: handle invalid status gracefully
   if (!config) {

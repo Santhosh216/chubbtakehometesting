@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures/test';
 
 test.describe('Login Page - Authentication Validation', () => {
 
@@ -43,12 +43,8 @@ test.describe('Login Page - Authentication Validation', () => {
     await expect(page).toHaveURL(/\/login$/);
   });
 
-  test('TC_AUTH_004 - Claimant successfully logs in and accesses claims page', async ({ page }) => {
-  await page.getByLabel('Email').fill('claimant@demo.com');
-
-  await page.locator('input[type="password"]').fill('Claimant123!');
-
-  await page.getByRole('button', { name: 'Log In' }).click();
+  test('TC_AUTH_004 - Claimant successfully logs in and accesses claims page', async ({ page, loginPage }) => {
+  await loginPage.signInAsClaimant();
 
   await expect(page).toHaveURL(/\/claims(?:\/)?$/, {
     timeout: 15000,

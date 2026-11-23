@@ -42,10 +42,21 @@ export function useRealtimeClaimUpdates(
   const websocketRef = useRef<WebSocket | null>(null);
   const retryCountRef = useRef(0);
   const retryTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const connectionStartRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isActiveRef = useRef(false);
   const onMessageRef = useRef(onMessage);
-  onMessageRef.current = onMessage;
+  const connectRef = useRef<() => void>(() => {});
+
+  useEffect(() => {
+    onMessageRef.current = onMessage;
+  }, [onMessage]);
 
   const cleanup = useCallback(() => {
+    isActiveRef.current = false;
+    if (connectionStartRef.current) {
+      clearTimeout(connectionStartRef.current);
+      connectionStartRef.current = null;
+    }
     if (retryTimeoutRef.current) {
       clearTimeout(retryTimeoutRef.current);
       retryTimeoutRef.current = null;
@@ -60,6 +71,7 @@ export function useRealtimeClaimUpdates(
     if (!isAuthenticated) return;
 
     cleanup();
+    isActiveRef.current = true;
     const url = getWebSocketUrl();
 
     try {
@@ -89,12 +101,13 @@ export function useRealtimeClaimUpdates(
 
       websocket.onclose = () => {
         websocketRef.current = null;
+        if (!isActiveRef.current) return;
 
         if (retryCountRef.current < MAX_RETRIES) {
           setConnectionState('reconnecting');
           const delay = Math.min(BASE_DELAY_MS * Math.pow(2, retryCountRef.current), 16000);
           retryCountRef.current += 1;
-          retryTimeoutRef.current = setTimeout(connect, delay);
+          retryTimeoutRef.current = setTimeout(() => connectRef.current(), delay);
         } else {
           setConnectionState('disconnected');
           setConnectionError(true);
@@ -115,8 +128,9 @@ export function useRealtimeClaimUpdates(
   }, [isAuthenticated, cleanup]);
 
   useEffect(() => {
+    connectRef.current = connect;
     if (isAuthenticated) {
-      connect();
+      connectionStartRef.current = setTimeout(() => connectRef.current(), 0);
     }
 
     return cleanup;

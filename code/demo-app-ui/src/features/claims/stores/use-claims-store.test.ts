@@ -1,8 +1,23 @@
 import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useClaimsStore } from './use-claims-store';
-import { claimsApi } from '@/src/lib/api/bff-client';
+import {
+  claimsApi,
+  type ClaimSummaryResponse,
+} from '@/src/lib/api/bff-client';
 import { ResponseError } from '@/src/lib/api/generated/runtime';
+
+const createClaim = (
+  overrides: Partial<ClaimSummaryResponse> = {}
+): ClaimSummaryResponse => ({
+  claimId: 'claim-default',
+  incidentDate: new Date('2025-01-01'),
+  description: 'Test claim',
+  claimAmount: 1000,
+  status: 'SUBMITTED',
+  createdAt: new Date('2025-01-01'),
+  ...overrides,
+});
 
 vi.mock('@/src/lib/api/bff-client', () => ({
   claimsApi: {
@@ -31,9 +46,15 @@ describe('useClaimsStore', () => {
 
   describe('fetchClaims', () => {
     it('should fetch and sort claims by createdAt descending', async () => {
-      const older = { claimId: '1', createdAt: new Date('2025-01-01') };
-      const newer = { claimId: '2', createdAt: new Date('2025-06-01') };
-      vi.mocked(claimsApi.listClaims).mockResolvedValue([older, newer] as any);
+      const older = createClaim({
+        claimId: '1',
+        createdAt: new Date('2025-01-01'),
+      });
+      const newer = createClaim({
+        claimId: '2',
+        createdAt: new Date('2025-06-01'),
+      });
+      vi.mocked(claimsApi.listClaims).mockResolvedValue([older, newer]);
 
       const { result } = renderHook(() => useClaimsStore());
       await act(async () => {
@@ -46,10 +67,11 @@ describe('useClaimsStore', () => {
     });
 
     it('should set loading state during fetch', async () => {
-      let resolvePromise: (value: any) => void;
-      vi.mocked(claimsApi.listClaims).mockReturnValue(
-        new Promise((resolve) => { resolvePromise = resolve; })
-      );
+      let resolvePromise!: (value: ClaimSummaryResponse[]) => void;
+      const pendingClaims = new Promise<ClaimSummaryResponse[]>((resolve) => {
+        resolvePromise = resolve;
+      });
+      vi.mocked(claimsApi.listClaims).mockReturnValue(pendingClaims);
 
       const { result } = renderHook(() => useClaimsStore());
       const fetchPromise = act(async () => {
@@ -59,7 +81,7 @@ describe('useClaimsStore', () => {
       // Loading should be true during fetch
       expect(useClaimsStore.getState().isLoading).toBe(true);
 
-      resolvePromise!([]);
+      resolvePromise([]);
       await fetchPromise;
     });
 
@@ -94,8 +116,8 @@ describe('useClaimsStore', () => {
 
   describe('addClaim', () => {
     it('should prepend new claim to list', () => {
-      const existing = { claimId: '1', createdAt: new Date() } as any;
-      const newClaim = { claimId: '2', createdAt: new Date() } as any;
+      const existing = createClaim({ claimId: '1' });
+      const newClaim = createClaim({ claimId: '2' });
       useClaimsStore.setState({ claims: [existing] });
 
       const { result } = renderHook(() => useClaimsStore());
@@ -110,24 +132,24 @@ describe('useClaimsStore', () => {
 
   describe('updateClaimStatus', () => {
     it('should update status for matching claim', () => {
-      const claim = { claimId: 'abc', status: 'SUBMITTED' } as any;
+      const claim = createClaim({ claimId: 'abc' });
       useClaimsStore.setState({ claims: [claim] });
 
       const { result } = renderHook(() => useClaimsStore());
       act(() => {
-        result.current.updateClaimStatus('abc', 'APPROVED' as any);
+        result.current.updateClaimStatus('abc', 'APPROVED');
       });
 
       expect(result.current.claims[0].status).toBe('APPROVED');
     });
 
     it('should not modify non-matching claims', () => {
-      const claim = { claimId: 'abc', status: 'SUBMITTED' } as any;
+      const claim = createClaim({ claimId: 'abc' });
       useClaimsStore.setState({ claims: [claim] });
 
       const { result } = renderHook(() => useClaimsStore());
       act(() => {
-        result.current.updateClaimStatus('xyz', 'APPROVED' as any);
+        result.current.updateClaimStatus('xyz', 'APPROVED');
       });
 
       expect(result.current.claims[0].status).toBe('SUBMITTED');

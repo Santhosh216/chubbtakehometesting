@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { createElement, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useAuthStore } from '@/src/features/auth/stores/use-auth-store';
@@ -61,13 +61,27 @@ export function useClaimRealtimeHandler() {
             position: 'bottom-right',
           });
         } else {
-          // Issue #1 CRITICAL: Add onClick navigation to toast
-          toast.success(
-            `Your claim #${truncateClaimId(message.claimId)}… status changed to ${message.newStatus}`,
+          const claimUrl = `/claims/${message.claimId}`;
+          toast.custom(
+            (t) =>
+              createElement(
+                'button',
+                {
+                  type: 'button',
+                  'aria-label': `View claim ${truncateClaimId(message.claimId)}`,
+                  className:
+                    'rounded-md bg-white px-4 py-3 text-left text-sm text-gray-900 shadow-lg',
+                  onClick: () => {
+                    toast.dismiss(t.id);
+                    router.push(claimUrl);
+                  },
+                },
+                `Your claim #${truncateClaimId(message.claimId)}… status changed to ${message.newStatus}`
+              ),
             {
               duration: 5000,
               id: `claim-update-${message.claimId}`,
-              onClick: () => router.push(`/claims/${message.claimId}`),
+              position: 'bottom-right',
             }
           );
         }

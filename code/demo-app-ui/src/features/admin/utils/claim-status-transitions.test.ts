@@ -1,5 +1,4 @@
-import { describe, it, expect } from 'vitest';
-import { vi } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 
 // Mock the generated API module before importing
 vi.mock('@/src/lib/api/bff-client', () => ({
@@ -46,14 +45,14 @@ describe('VALID_TRANSITIONS', () => {
 
 describe('getValidTransitions', () => {
   it('returns valid transitions for known status', () => {
-    expect(getValidTransitions('SUBMITTED' as any)).toEqual([
+    expect(getValidTransitions('SUBMITTED')).toEqual([
       'UNDER_REVIEW',
       'REJECTED',
     ]);
   });
 
   it('returns empty array for unknown status', () => {
-    expect(getValidTransitions('UNKNOWN' as any)).toEqual([]);
+    expect(getValidTransitions('UNKNOWN')).toEqual([]);
   });
 });
 

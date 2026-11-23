@@ -1,7 +1,10 @@
 import { renderHook, act, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { useClaimWizardStore } from './use-claim-wizard-store';
-import { claimsApi } from '@/src/lib/api/bff-client';
+import {
+  claimsApi,
+  type ClaimResponse,
+} from '@/src/lib/api/bff-client';
 import { ResponseError } from '@/src/lib/api/generated/runtime';
 
 vi.mock('@/src/lib/api/bff-client', () => ({
@@ -148,16 +151,16 @@ describe('useClaimWizardStore', () => {
 
   describe('Submit Claim - Success', () => {
     it('should successfully submit claim and return response', async () => {
-      const mockResponse = {
+      const mockResponse: ClaimResponse = {
         claimId: 'claim-123',
         userId: 'user-456',
-        incidentDate: '2026-02-15',
+        incidentDate: new Date('2026-02-15'),
         incidentLocation: 'Test Location',
         description: 'Test description',
         claimAmount: 1000,
         status: 'SUBMITTED' as const,
-        createdAt: '2026-02-17T10:00:00Z',
-        updatedAt: '2026-02-17T10:00:00Z',
+        createdAt: new Date('2026-02-17T10:00:00Z'),
+        updatedAt: new Date('2026-02-17T10:00:00Z'),
       };
 
       vi.mocked(claimsApi.submitClaim).mockResolvedValue(mockResponse);
@@ -185,16 +188,16 @@ describe('useClaimWizardStore', () => {
     });
 
     it('should clear errors before submission', async () => {
-      const mockResponse = {
+      const mockResponse: ClaimResponse = {
         claimId: 'claim-123',
         userId: 'user-456',
-        incidentDate: '2026-02-15',
+        incidentDate: new Date('2026-02-15'),
         incidentLocation: 'Test Location',
         description: 'Test description',
         claimAmount: 1000,
         status: 'SUBMITTED' as const,
-        createdAt: '2026-02-17T10:00:00Z',
-        updatedAt: '2026-02-17T10:00:00Z',
+        createdAt: new Date('2026-02-17T10:00:00Z'),
+        updatedAt: new Date('2026-02-17T10:00:00Z'),
       };
 
       vi.mocked(claimsApi.submitClaim).mockResolvedValue(mockResponse);

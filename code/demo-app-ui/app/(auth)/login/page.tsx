@@ -17,13 +17,13 @@ export default function LoginPage() {
   const login = useAuthStore((s) => s.login);
   const [serverError, setServerError] = useState('');
 
-  // Check for session expiry message
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       if (params.get('session_expired') === 'true') {
+        // This effect intentionally syncs the URL query into the form's error UI.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setServerError('Your session has expired. Please log in again.');
-        // Clean up URL
         window.history.replaceState({}, '', '/login');
       }
     }
@@ -64,13 +64,7 @@ export default function LoginPage() {
         role: result.role,
       });
 
-      // Use window.location instead of router.push to ensure cookies are sent with the request
-      // This fixes the issue where middleware doesn't see the just-set cookie during client-side navigation
-      if (result.role === 'ADMIN') {
-        window.location.href = '/admin/dashboard';
-      } else {
-        window.location.href = '/claims';
-      }
+      router.push(result.role === 'ADMIN' ? '/admin/dashboard' : '/claims');
     } catch (error) {
       console.error('Login error:', error);
       setServerError('Network error, please try again');

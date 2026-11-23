@@ -21,7 +21,7 @@ describe('ClaimStatusBadge', () => {
     ['REJECTED', 'Rejected'],
     ['CLOSED', 'Closed'],
   ] as const)('renders %s as "%s"', (status, label) => {
-    render(<ClaimStatusBadge status={status as any} />);
+    render(<ClaimStatusBadge status={status} />);
     expect(screen.getByRole('status')).toHaveTextContent(label);
     expect(screen.getByRole('status')).toHaveAttribute(
       'aria-label',
@@ -30,7 +30,7 @@ describe('ClaimStatusBadge', () => {
   });
 
   it('renders Unknown for invalid status', () => {
-    render(<ClaimStatusBadge status={'INVALID' as any} />);
+    render(<ClaimStatusBadge status="INVALID" />);
     expect(screen.getByRole('status')).toHaveTextContent('Unknown');
   });
 });

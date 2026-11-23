@@ -2,10 +2,10 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/e2e',
-  fullyParallel: true,
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1,
   timeout: 30_000,
   reporter: [
     ['html', { outputFolder: 'playwright-report' }],
@@ -14,6 +14,8 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:3001',
     trace: 'on-first-retry',
+    screenshot: 'on',
+    video: 'on',
   },
   globalSetup: './tests/e2e/global-setup.ts',
   projects: [

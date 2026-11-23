@@ -27,6 +27,8 @@ export const ClaimDetailModal = ({
   useEffect(() => {
     if (isOpen && claimId) {
       triggerRef.current = document.activeElement;
+      // Reset request state when a new claim-detail request starts.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsLoading(true);
       setError(null);
       setClaim(null);

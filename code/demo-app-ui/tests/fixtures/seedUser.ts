@@ -19,7 +19,7 @@ interface SeedUserFixture {
 }
 
 export const test = base.extend<{ seedUser: SeedUserFixture }>({
-  seedUser: async ({}, use) => {
+  seedUser: async ({}, fixtureUse) => {
     const createdUsers: UserTestData[] = [];
 
     const seedUser: SeedUserFixture = {
@@ -33,7 +33,7 @@ export const test = base.extend<{ seedUser: SeedUserFixture }>({
       createdUsers,
     };
 
-    await use(seedUser);
+    await fixtureUse(seedUser);
 
     // Cleanup: called after each test
     // In a real scenario, you would delete created users:
