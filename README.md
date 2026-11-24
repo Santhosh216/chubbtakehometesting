@@ -169,28 +169,61 @@ cd code/bff-service && mvn test
 cd code/demo-app-ui && npm test
 ```
 
-### Run E2E tests (requires full stack running)
+### Run UI tests (requires full stack and claimant credentials)
 
 ```bash
 cd code/demo-app-ui
+# Windows PowerShell
+.\node_modules\.bin\playwright.cmd test tests/e2e/login.spec.ts tests/e2e/claims.spec.ts tests/e2e/authenticated-login.spec.ts
+# macOS/Linux
 npx playwright test tests/e2e/login.spec.ts tests/e2e/claims.spec.ts tests/e2e/authenticated-login.spec.ts
 ```
 
-For authenticated UI tests, set `CHUBB_CLAIMANT_EMAIL` and
-`CHUBB_CLAIMANT_PASSWORD` in the shell. For live API tests, set
+The local Keycloak realm seeds `claimant@demo.com`; the password is in
+`docker/compose/keycloak/demo-app-realm.json`. Load it into process-local
+environment variables rather than copying it into a test, `.env` file, or
+committed script. For Windows PowerShell, from the repository root:
+
+```powershell
+$claimant = (Get-Content docker\compose\keycloak\demo-app-realm.json -Raw | ConvertFrom-Json).users | Where-Object username -eq 'claimant@demo.com'
+$env:CHUBB_CLAIMANT_EMAIL = $claimant.email
+$env:CHUBB_CLAIMANT_PASSWORD = ($claimant.credentials | Where-Object type -eq 'password' | Select-Object -First 1).value
+Set-Location code\demo-app-ui
+.\node_modules\.bin\playwright.cmd test tests/e2e/login.spec.ts tests/e2e/claims.spec.ts tests/e2e/authenticated-login.spec.ts
+Remove-Item Env:\CHUBB_CLAIMANT_EMAIL, Env:\CHUBB_CLAIMANT_PASSWORD
+```
+
+For macOS/Linux, export the two variables from the local realm's test account
+before running the Playwright command. Playwright records a completion
+screenshot and video for each case; the shared fixture adds full-page
+screenshots for the authentication cases. The latest run's reviewer-facing
+artifacts are:
+
+- Screenshots: `execution-evidence/screenshots/`
+- Videos: `execution-evidence/videos/`
+- HTML report: `execution-evidence/playwright-report/index.html`
+- Execution summary: `execution-evidence/execution-summary.md`
+- Defect report: `DEFECT_REPORT.md`
+
+Latest UI run (2026-11-24): 14 cases executed; 14 passed, 0 failed, 0 skipped.
+The seeded claimant login and claim submission both passed against the local
+application stack. See the execution summary for per-case expected/actual
+results and evidence links. The incomplete earlier setup run is retained
+under `execution-evidence/historical-setup-failure-2026-11-24/`. The
+2026-11-23 JUnit report below is historical and is not the latest execution.
+
+For live API tests, set
 `CHUBB_API_BASE_URL` and `CHUBB_API_TOKEN`, then run:
 
 ```bash
 npx playwright test tests/e2e/api/claims.api.spec.ts
 ```
 
-The verified 2026-11-23 Playwright JUnit reports are
+The historical 2026-11-23 Playwright JUnit reports are
 `code/demo-app-ui/test-evidence/playwright-ui-results-2026-11-23.xml` and
 `code/demo-app-ui/test-evidence/playwright-api-results-2026-11-23.xml`.
 The Vitest JSON report is
 `code/demo-app-ui/test-evidence/vitest-results-2026-11-23.json`.
-UI screenshots, videos and traces are captured under
-`code/demo-app-ui/test-results/`.
 
 ---
 

@@ -391,3 +391,262 @@ Do not invent test results, remove working tests, or delete required evidence.
 
 Start with repository cleanup review and Git repository discovery.
 ```
+
+### UI execution evidence and defect reporting prompt
+
+~~~text
+Act as a Senior QA Automation Engineer. Review the existing Chubb QA Take-Home Assessment repository and complete the remaining reviewer requirements.
+
+The latest reviewer feedback is:
+
+1. AI Journal – Completed.
+2. Architecture – Completed.
+3. Test Strategy – Completed.
+4. Test Cases – Completed.
+5. Test Automation – Completed.
+6. UI Tests – Execute all automated test cases and provide execution evidence. Create separate folders for screenshots and videos and upload all execution screenshots and recorded videos.
+7. API Tests – Completed.
+8. Defect Reporting – Any UI defects identified during Playwright test execution should be documented using the prescribed Defect Template.
+Focus exclusively on requirements 6 and 8. Do not modify the six already approved deliverables unnecessarily.
+
+### Task 1: Review the existing framework
+
+- Inspect the complete repository structure, Playwright configuration, UI test scripts, test case template, defect template, application setup and README.
+- Identify all automated UI test cases and their corresponding test case IDs.
+- Verify the application, database, backend and frontend services are running correctly.
+- Reuse the existing framework, page objects, fixtures and test data.
+
+### Task 2: Execute all Playwright UI tests
+
+- Configure Playwright to capture screenshots and videos for every UI test, including passed and failed tests.
+- Execute all existing automated UI test cases, including positive and negative claims application scenarios.
+- Do not skip, disable or remove any existing test cases.
+- Do not weaken assertions or modify expected results simply to make tests pass.
+- Capture meaningful screenshots at important validation steps and at test completion.
+- Record complete execution videos for every UI test.
+- Preserve the actual execution results.
+
+### Task 3: Organize execution evidence
+Create separate folders in the repository using the existing project structure:
+
+- execution-evidence/screenshots/
+- execution-evidence/videos/
+Use meaningful filenames containing the test case ID, scenario name and execution status.
+
+Ensure every executed UI test has corresponding screenshot and video evidence.
+
+Create an execution-summary.md file containing:
+
+- Execution date and time
+- Environment details
+- Browser details
+- Total UI test cases executed
+- Passed, failed and skipped test counts
+- Execution duration
+- Test case ID and scenario name
+- Expected and actual results
+- Execution status
+- Relative screenshot and video paths
+- Related defect ID, if applicable
+Generate the Playwright HTML report and ensure evidence files are accessible to the reviewer.
+
+### Task 4: Defect identification and reporting
+Analyze every failed UI test and determine whether the failure is caused by:
+
+- An actual application defect
+- An automation script issue
+- A test data issue
+- An environment or configuration issue
+Only genuine application defects should be reported as product defects.
+
+For every actual UI defect identified during Playwright execution, update the existing prescribed Defect Template using the standard defect reporting format.
+
+Include:
+
+- Defect ID
+- Defect title
+- Module
+- Related test case ID
+- Severity
+- Priority
+- Environment
+- Preconditions
+- Test data
+- Detailed steps to reproduce
+- Expected result
+- Actual result
+- Screenshot evidence
+- Video evidence
+- Reproducibility
+- Defect status
+- Retest results, if applicable
+Review any previously reported defects and verify their execution evidence before including them.
+
+If no genuine UI defects are identified, explicitly document that no UI defects were observed during the execution. Do not fabricate defects, execution results, screenshots or videos.
+
+Do not fix genuine application defects before capturing the original failure evidence.
+
+### Task 5: Update documentation
+Update the README with:
+
+- UI test execution instructions
+- Screenshot folder location
+- Video folder location
+- Playwright report location
+- Execution summary location
+- Defect report location
+- Actual latest execution results
+Append this exact prompt and any additional prompts actually used to the existing AI Working Journal without removing the previously approved content.
+
+### Task 6: GitHub submission readiness
+
+- Ensure all required screenshots, videos and defect documentation are available for Git tracking.
+- Review .gitignore and make narrowly scoped exceptions for required execution evidence if necessary.
+- Exclude node_modules, .next, temporary build files, credentials, environment secrets, authentication tokens and sensitive raw traces.
+- Check screenshots, videos and reports for sensitive information.
+- Check GitHub file size limitations before staging videos.
+- Preserve the existing repository structure and approved deliverables.
+- Do not push to the main branch.
+- Do not force push.
+- Do not commit or push until I review and approve the final changes.
+Target submission branch: santhosh216-assessment.
+
+### Task 7: Final verification
+After completing the tasks, provide a detailed summary containing:
+
+1. Total UI tests executed.
+2. Passed, failed and skipped counts.
+3. Number of screenshots generated.
+4. Number of videos generated.
+5. Number of genuine UI defects identified.
+6. Defect IDs and titles.
+7. Files created or modified.
+8. Evidence folder paths.
+9. Git status and changes ready for submission.
+10. Any remaining limitations or pending requirements.
+Execute the actual tests using the terminal. Do not stop after generating code or suggesting commands. Complete the implementation, execution, evidence collection and documentation.
+
+Do not claim completion unless the actual execution evidence has been generated and verified.
+~~~
+
+### Authenticated UI rerun and final evidence prompt
+
+~~~text
+The previous Playwright UI execution is incomplete because only 3 out of 14 tests passed, and 11 tests failed during authenticated setup.
+
+The reviewer requires complete UI test execution evidence, including screenshots and videos for all automated test cases.
+
+Resolve the environment and authentication issues before generating the final submission evidence.
+
+### 1. Fix environment setup
+
+- Inspect the existing README, Docker Compose configuration, environment configuration, application startup scripts and Playwright authentication setup.
+- Check whether Docker Desktop and the Docker engine are running.
+- Identify and resolve Docker startup or connectivity issues.
+- Start all required frontend, backend, BFF, database and supporting services using the existing project configuration.
+- Verify service health and application accessibility before executing tests.
+- If Docker cannot be started without manual intervention, provide the exact steps required and wait for confirmation.
+
+### 2. Resolve authentication configuration
+The following environment variables were missing:
+
+- CHUBB_CLAIMANT_EMAIL
+- CHUBB_CLAIMANT_PASSWORD
+Identify the documented test credentials or existing test-user provisioning mechanism.
+
+If required, create a dedicated test claimant account using the supported application signup or database seeding mechanism.
+
+Configure the required environment variables securely for local test execution.
+
+Do not hardcode credentials in test scripts, commit secrets to GitHub, bypass authentication or mock authentication merely to make tests pass.
+
+Verify successful claimant login before executing the complete UI suite.
+
+### 3. Re-execute all 14 UI test cases
+
+- Execute all 14 existing Playwright UI test cases against the fully running application.
+- Include all authenticated positive and negative claims scenarios.
+- Do not skip or disable tests.
+- Do not weaken assertions or change expected results to force tests to pass.
+- Capture screenshots and complete videos for every test.
+- Investigate any remaining failures and classify their actual root cause.
+- The target is successful functional execution of all 14 tests, with genuine application defects reported if encountered.
+
+### 4. Regenerate execution evidence
+Replace the incomplete submission evidence with evidence from the latest valid functional execution. Preserve relevant historical failure evidence separately if needed.
+
+Maintain separate folders:
+
+- execution-evidence/screenshots/
+- execution-evidence/videos/
+Ensure every test case has corresponding screenshots and videos mapped to its test case ID.
+
+Regenerate the Playwright HTML report and execution-summary.md using actual execution results.
+
+Clearly distinguish setup failures, automation failures and genuine application defects.
+
+### 5. Verify defect reporting
+Review DEF-001 and DEF-002 and confirm their classification, reproduction evidence and retest results.
+
+Do not classify API defects as UI defects unless their impact is demonstrated through actual UI execution.
+
+Report any newly identified genuine UI defects using the prescribed Defect Template.
+
+If no UI defects are identified after successful functional execution, explicitly document that result.
+
+Do not fabricate defects or execution evidence.
+
+### 6. Final documentation and verification
+Update README.md, DEFECT_REPORT.md and execution-summary.md with the latest verified results.
+
+Append this exact prompt and any additional prompts used to AI_WORKING_JOURNAL.md.
+
+Preserve all previously approved deliverables.
+
+Provide the following final summary:
+
+- Docker and application service status
+- Authentication setup status
+- Total UI tests executed
+- Passed count
+- Failed count
+- Skipped count
+- Execution duration
+- Screenshot count
+- Video count
+- Genuine UI defects identified
+- Evidence folder paths
+- Git status
+- Remaining limitations, if any
+Execute the actual commands and tests rather than only providing instructions.
+
+Do not claim completion if authenticated scenarios remain unverified.
+
+Do not commit or push any changes until I approve the final execution results.
+~~~
+
+### Final GitHub submission prompt (2026-11-24)
+
+~~~text
+The latest execution results are approved for final GitHub submission.
+
+Perform the final repository verification and push the updated assessment.
+
+1. Verify that the current branch is santhosh216-assessment and the remote repository is [https://github.com/Santhosh216/chubbtakehometesting.git](https://github.com/Santhosh216/chubbtakehometesting.git).
+2. Verify all 14 UI test results, 18 screenshots, 14 videos, execution summary, Playwright HTML report and defect report.
+3. Ensure all evidence files are tracked and accessible through GitHub.
+4. Ensure no credentials, authentication tokens, environment secrets, sensitive raw traces, temporary files or unnecessary build artifacts are included.
+5. Verify the approved deliverables remain intact.
+6. Append this exact prompt to the AI Working Journal.
+7. Run git diff --check and review the staged files.
+8. Stage only the required assessment files and verified execution evidence.
+9. Commit with the message:
+Complete Chubb QA assessment with UI execution evidence and verified defect reporting
+
+1. Push to origin santhosh216-assessment.
+2. Verify that the local and remote commit IDs match.
+3. Confirm the working tree is clean.
+Do not push to main, force push, delete existing approved deliverables or create an empty commit.
+
+Provide the final commit ID, Git push status, execution evidence paths and GitHub submission link.
+~~~

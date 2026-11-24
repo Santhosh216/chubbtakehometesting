@@ -1,0 +1,542 @@
+<testsuites id="" name="" tests="14" failures="0" skipped="0" errors="11" time="61.492999000000005">
+<testsuite name="authenticated-login.spec.ts" timestamp="2026-11-24T09:24:20.278Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.242" errors="1">
+<testcase name="Authenticated Login › TC_AUTH_004 - Claimant successfully logs in and accesses claims page" classname="authenticated-login.spec.ts" time="3.242">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\authenticated-login-Authen-8cced-in-and-accesses-claims-page-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\test-results\authenticated-login-Authen-8cced-in-and-accesses-claims-page-chromium\attachments\final-page-8ca52213c523be1c5a680911e2bc2f7b1c721d78.png]]
+
+[[ATTACHMENT|..\test-results\authenticated-login-Authen-8cced-in-and-accesses-claims-page-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\authenticated-login-Authen-8cced-in-and-accesses-claims-page-chromium\error-context.md]]
+]]>
+</system-out>
+<error message="Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests" type="Error">
+<![CDATA[  [chromium] › authenticated-login.spec.ts:10:3 › Authenticated Login › TC_AUTH_004 - Claimant successfully logs in and accesses claims page
+
+    Error: Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests
+
+       at pages\LoginPage.ts:14
+
+      12 |     const password = process.env.CHUBB_CLAIMANT_PASSWORD;
+      13 |     if (!email || !password) {
+    > 14 |       throw new Error('Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests');
+         |             ^
+      15 |     }
+      16 |
+      17 |     await this.open(); await this.signIn(email, password);
+        at LoginPage.signInAsClaimant (D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\pages\LoginPage.ts:14:13)
+        at D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\authenticated-login.spec.ts:11:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\authenticated-login-Authen-8cced-in-and-accesses-claims-page-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: final-page (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\authenticated-login-Authen-8cced-in-and-accesses-claims-page-chromium\attachments\final-page-8ca52213c523be1c5a680911e2bc2f7b1c721d78.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\authenticated-login-Authen-8cced-in-and-accesses-claims-page-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\authenticated-login-Authen-8cced-in-and-accesses-claims-page-chromium\error-context.md
+]]>
+</error>
+</testcase>
+</testsuite>
+<testsuite name="claims.spec.ts" timestamp="2026-11-24T09:24:20.278Z" hostname="chromium" tests="10" failures="0" skipped="0" time="5.502" errors="10">
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_001 - Empty incident details prevent navigation" classname="claims.spec.ts" time="0.573">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----154e3--details-prevent-navigation-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----154e3--details-prevent-navigation-chromium\attachments\final-page-b19e71e9f91d9a452e434a33f6b88c6f0cbb420a.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----154e3--details-prevent-navigation-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----154e3--details-prevent-navigation-chromium\error-context.md]]
+]]>
+</system-out>
+<error message="Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests" type="Error">
+<![CDATA[  [chromium] › claims.spec.ts:14:3 › Insurance Claims - Claim Submission Wizard › TC_CLAIM_001 - Empty incident details prevent navigation
+
+    Error: Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests
+
+       at pages\LoginPage.ts:14
+
+      12 |     const password = process.env.CHUBB_CLAIMANT_PASSWORD;
+      13 |     if (!email || !password) {
+    > 14 |       throw new Error('Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests');
+         |             ^
+      15 |     }
+      16 |
+      17 |     await this.open(); await this.signIn(email, password);
+        at LoginPage.signInAsClaimant (D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\pages\LoginPage.ts:14:13)
+        at D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\claims.spec.ts:8:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----154e3--details-prevent-navigation-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: final-page (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----154e3--details-prevent-navigation-chromium\attachments\final-page-b19e71e9f91d9a452e434a33f6b88c6f0cbb420a.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----154e3--details-prevent-navigation-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\claims-Insurance-Claims----154e3--details-prevent-navigation-chromium\error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_002 - Valid incident details navigate to Step 2" classname="claims.spec.ts" time="0.491">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----4fe7d--details-navigate-to-Step-2-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----4fe7d--details-navigate-to-Step-2-chromium\attachments\final-page-0ad26bba4c3e644c185fbe8c63efe34037ab8206.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----4fe7d--details-navigate-to-Step-2-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----4fe7d--details-navigate-to-Step-2-chromium\error-context.md]]
+]]>
+</system-out>
+<error message="Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests" type="Error">
+<![CDATA[  [chromium] › claims.spec.ts:28:3 › Insurance Claims - Claim Submission Wizard › TC_CLAIM_002 - Valid incident details navigate to Step 2
+
+    Error: Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests
+
+       at pages\LoginPage.ts:14
+
+      12 |     const password = process.env.CHUBB_CLAIMANT_PASSWORD;
+      13 |     if (!email || !password) {
+    > 14 |       throw new Error('Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests');
+         |             ^
+      15 |     }
+      16 |
+      17 |     await this.open(); await this.signIn(email, password);
+        at LoginPage.signInAsClaimant (D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\pages\LoginPage.ts:14:13)
+        at D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\claims.spec.ts:8:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----4fe7d--details-navigate-to-Step-2-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: final-page (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----4fe7d--details-navigate-to-Step-2-chromium\attachments\final-page-0ad26bba4c3e644c185fbe8c63efe34037ab8206.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----4fe7d--details-navigate-to-Step-2-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\claims-Insurance-Claims----4fe7d--details-navigate-to-Step-2-chromium\error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_003 - Location shorter than five characters blocks Step 1" classname="claims.spec.ts" time="0.57">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----b8199-ve-characters-blocks-Step-1-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----b8199-ve-characters-blocks-Step-1-chromium\attachments\final-page-9c66a525aa8e18f5067b553a7f80c013bed973ee.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----b8199-ve-characters-blocks-Step-1-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----b8199-ve-characters-blocks-Step-1-chromium\error-context.md]]
+]]>
+</system-out>
+<error message="Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests" type="Error">
+<![CDATA[  [chromium] › claims.spec.ts:45:3 › Insurance Claims - Claim Submission Wizard › TC_CLAIM_003 - Location shorter than five characters blocks Step 1
+
+    Error: Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests
+
+       at pages\LoginPage.ts:14
+
+      12 |     const password = process.env.CHUBB_CLAIMANT_PASSWORD;
+      13 |     if (!email || !password) {
+    > 14 |       throw new Error('Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests');
+         |             ^
+      15 |     }
+      16 |
+      17 |     await this.open(); await this.signIn(email, password);
+        at LoginPage.signInAsClaimant (D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\pages\LoginPage.ts:14:13)
+        at D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\claims.spec.ts:8:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----b8199-ve-characters-blocks-Step-1-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: final-page (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----b8199-ve-characters-blocks-Step-1-chromium\attachments\final-page-9c66a525aa8e18f5067b553a7f80c013bed973ee.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----b8199-ve-characters-blocks-Step-1-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\claims-Insurance-Claims----b8199-ve-characters-blocks-Step-1-chromium\error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_008 - Zero claim amount blocks Step 1" classname="claims.spec.ts" time="0.528">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----7395b--claim-amount-blocks-Step-1-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----7395b--claim-amount-blocks-Step-1-chromium\attachments\final-page-d33344ed070b47dae5c1a65f2a57a5127e7b9d48.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----7395b--claim-amount-blocks-Step-1-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----7395b--claim-amount-blocks-Step-1-chromium\error-context.md]]
+]]>
+</system-out>
+<error message="Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests" type="Error">
+<![CDATA[  [chromium] › claims.spec.ts:53:3 › Insurance Claims - Claim Submission Wizard › TC_CLAIM_008 - Zero claim amount blocks Step 1
+
+    Error: Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests
+
+       at pages\LoginPage.ts:14
+
+      12 |     const password = process.env.CHUBB_CLAIMANT_PASSWORD;
+      13 |     if (!email || !password) {
+    > 14 |       throw new Error('Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests');
+         |             ^
+      15 |     }
+      16 |
+      17 |     await this.open(); await this.signIn(email, password);
+        at LoginPage.signInAsClaimant (D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\pages\LoginPage.ts:14:13)
+        at D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\claims.spec.ts:8:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----7395b--claim-amount-blocks-Step-1-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: final-page (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----7395b--claim-amount-blocks-Step-1-chromium\attachments\final-page-d33344ed070b47dae5c1a65f2a57a5127e7b9d48.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----7395b--claim-amount-blocks-Step-1-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\claims-Insurance-Claims----7395b--claim-amount-blocks-Step-1-chromium\error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_009 - Maximum allowed claim amount advances to Step 2" classname="claims.spec.ts" time="0.617">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----f220a-m-amount-advances-to-Step-2-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----f220a-m-amount-advances-to-Step-2-chromium\attachments\final-page-baa20d8231b6c225ac7b4ad5549557479265d739.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----f220a-m-amount-advances-to-Step-2-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----f220a-m-amount-advances-to-Step-2-chromium\error-context.md]]
+]]>
+</system-out>
+<error message="Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests" type="Error">
+<![CDATA[  [chromium] › claims.spec.ts:60:3 › Insurance Claims - Claim Submission Wizard › TC_CLAIM_009 - Maximum allowed claim amount advances to Step 2
+
+    Error: Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests
+
+       at pages\LoginPage.ts:14
+
+      12 |     const password = process.env.CHUBB_CLAIMANT_PASSWORD;
+      13 |     if (!email || !password) {
+    > 14 |       throw new Error('Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests');
+         |             ^
+      15 |     }
+      16 |
+      17 |     await this.open(); await this.signIn(email, password);
+        at LoginPage.signInAsClaimant (D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\pages\LoginPage.ts:14:13)
+        at D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\claims.spec.ts:8:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----f220a-m-amount-advances-to-Step-2-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: final-page (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----f220a-m-amount-advances-to-Step-2-chromium\attachments\final-page-baa20d8231b6c225ac7b4ad5549557479265d739.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----f220a-m-amount-advances-to-Step-2-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\claims-Insurance-Claims----f220a-m-amount-advances-to-Step-2-chromium\error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_010 - Ten-character description meets the minimum boundary" classname="claims.spec.ts" time="0.523">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----6da90--meets-the-minimum-boundary-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----6da90--meets-the-minimum-boundary-chromium\attachments\final-page-b8f48df62e3ec2d9f396a3fb42cc98d36f5f62ee.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----6da90--meets-the-minimum-boundary-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----6da90--meets-the-minimum-boundary-chromium\error-context.md]]
+]]>
+</system-out>
+<error message="Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests" type="Error">
+<![CDATA[  [chromium] › claims.spec.ts:69:3 › Insurance Claims - Claim Submission Wizard › TC_CLAIM_010 - Ten-character description meets the minimum boundary
+
+    Error: Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests
+
+       at pages\LoginPage.ts:14
+
+      12 |     const password = process.env.CHUBB_CLAIMANT_PASSWORD;
+      13 |     if (!email || !password) {
+    > 14 |       throw new Error('Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests');
+         |             ^
+      15 |     }
+      16 |
+      17 |     await this.open(); await this.signIn(email, password);
+        at LoginPage.signInAsClaimant (D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\pages\LoginPage.ts:14:13)
+        at D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\claims.spec.ts:8:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----6da90--meets-the-minimum-boundary-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: final-page (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----6da90--meets-the-minimum-boundary-chromium\attachments\final-page-b8f48df62e3ec2d9f396a3fb42cc98d36f5f62ee.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----6da90--meets-the-minimum-boundary-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\claims-Insurance-Claims----6da90--meets-the-minimum-boundary-chromium\error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_004 - Description validation prevents invalid input" classname="claims.spec.ts" time="0.611">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----32274-tion-prevents-invalid-input-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----32274-tion-prevents-invalid-input-chromium\attachments\final-page-ba97b65a6335ed836aa01aa1833c7a34d9e8a95d.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----32274-tion-prevents-invalid-input-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----32274-tion-prevents-invalid-input-chromium\error-context.md]]
+]]>
+</system-out>
+<error message="Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests" type="Error">
+<![CDATA[  [chromium] › claims.spec.ts:78:3 › Insurance Claims - Claim Submission Wizard › TC_CLAIM_004 - Description validation prevents invalid input
+
+    Error: Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests
+
+       at pages\LoginPage.ts:14
+
+      12 |     const password = process.env.CHUBB_CLAIMANT_PASSWORD;
+      13 |     if (!email || !password) {
+    > 14 |       throw new Error('Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests');
+         |             ^
+      15 |     }
+      16 |
+      17 |     await this.open(); await this.signIn(email, password);
+        at LoginPage.signInAsClaimant (D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\pages\LoginPage.ts:14:13)
+        at D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\claims.spec.ts:8:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----32274-tion-prevents-invalid-input-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: final-page (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----32274-tion-prevents-invalid-input-chromium\attachments\final-page-ba97b65a6335ed836aa01aa1833c7a34d9e8a95d.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----32274-tion-prevents-invalid-input-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\claims-Insurance-Claims----32274-tion-prevents-invalid-input-chromium\error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_005 - Back navigation preserves incident details" classname="claims.spec.ts" time="0.532">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----2ab7e--preserves-incident-details-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----2ab7e--preserves-incident-details-chromium\attachments\final-page-753e11a7ae24a49839534551732d73fbaa0f51c1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----2ab7e--preserves-incident-details-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----2ab7e--preserves-incident-details-chromium\error-context.md]]
+]]>
+</system-out>
+<error message="Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests" type="Error">
+<![CDATA[  [chromium] › claims.spec.ts:103:3 › Insurance Claims - Claim Submission Wizard › TC_CLAIM_005 - Back navigation preserves incident details
+
+    Error: Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests
+
+       at pages\LoginPage.ts:14
+
+      12 |     const password = process.env.CHUBB_CLAIMANT_PASSWORD;
+      13 |     if (!email || !password) {
+    > 14 |       throw new Error('Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests');
+         |             ^
+      15 |     }
+      16 |
+      17 |     await this.open(); await this.signIn(email, password);
+        at LoginPage.signInAsClaimant (D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\pages\LoginPage.ts:14:13)
+        at D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\claims.spec.ts:8:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----2ab7e--preserves-incident-details-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: final-page (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----2ab7e--preserves-incident-details-chromium\attachments\final-page-753e11a7ae24a49839534551732d73fbaa0f51c1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----2ab7e--preserves-incident-details-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\claims-Insurance-Claims----2ab7e--preserves-incident-details-chromium\error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_006 - Review screen displays entered claim details" classname="claims.spec.ts" time="0.543">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----eac9b-plays-entered-claim-details-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----eac9b-plays-entered-claim-details-chromium\attachments\final-page-6aff9cae0be2b402141ebe07d5ef5e27bc021603.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----eac9b-plays-entered-claim-details-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----eac9b-plays-entered-claim-details-chromium\error-context.md]]
+]]>
+</system-out>
+<error message="Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests" type="Error">
+<![CDATA[  [chromium] › claims.spec.ts:121:3 › Insurance Claims - Claim Submission Wizard › TC_CLAIM_006 - Review screen displays entered claim details
+
+    Error: Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests
+
+       at pages\LoginPage.ts:14
+
+      12 |     const password = process.env.CHUBB_CLAIMANT_PASSWORD;
+      13 |     if (!email || !password) {
+    > 14 |       throw new Error('Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests');
+         |             ^
+      15 |     }
+      16 |
+      17 |     await this.open(); await this.signIn(email, password);
+        at LoginPage.signInAsClaimant (D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\pages\LoginPage.ts:14:13)
+        at D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\claims.spec.ts:8:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----eac9b-plays-entered-claim-details-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: final-page (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----eac9b-plays-entered-claim-details-chromium\attachments\final-page-6aff9cae0be2b402141ebe07d5ef5e27bc021603.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----eac9b-plays-entered-claim-details-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\claims-Insurance-Claims----eac9b-plays-entered-claim-details-chromium\error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Insurance Claims - Claim Submission Wizard › TC_CLAIM_007 - Claimant successfully submits a claim" classname="claims.spec.ts" time="0.514">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----46b98-uccessfully-submits-a-claim-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----46b98-uccessfully-submits-a-claim-chromium\attachments\final-page-cf97b6742d0137b0c4e91d4539db23889cb37ad9.png]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----46b98-uccessfully-submits-a-claim-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\claims-Insurance-Claims----46b98-uccessfully-submits-a-claim-chromium\error-context.md]]
+]]>
+</system-out>
+<error message="Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests" type="Error">
+<![CDATA[  [chromium] › claims.spec.ts:149:3 › Insurance Claims - Claim Submission Wizard › TC_CLAIM_007 - Claimant successfully submits a claim
+
+    Error: Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests
+
+       at pages\LoginPage.ts:14
+
+      12 |     const password = process.env.CHUBB_CLAIMANT_PASSWORD;
+      13 |     if (!email || !password) {
+    > 14 |       throw new Error('Set CHUBB_CLAIMANT_EMAIL and CHUBB_CLAIMANT_PASSWORD before authenticated UI tests');
+         |             ^
+      15 |     }
+      16 |
+      17 |     await this.open(); await this.signIn(email, password);
+        at LoginPage.signInAsClaimant (D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\pages\LoginPage.ts:14:13)
+        at D:\Chubb_Final_Submission\code\demo-app-ui\tests\e2e\claims.spec.ts:8:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----46b98-uccessfully-submits-a-claim-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: final-page (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----46b98-uccessfully-submits-a-claim-chromium\attachments\final-page-cf97b6742d0137b0c4e91d4539db23889cb37ad9.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\claims-Insurance-Claims----46b98-uccessfully-submits-a-claim-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\claims-Insurance-Claims----46b98-uccessfully-submits-a-claim-chromium\error-context.md
+]]>
+</error>
+</testcase>
+</testsuite>
+<testsuite name="login.spec.ts" timestamp="2026-11-24T09:24:20.278Z" hostname="chromium" tests="3" failures="0" skipped="0" time="14.073" errors="0">
+<testcase name="Login Page - Authentication Validation › TC_AUTH_001 - Login page displays required elements" classname="login.spec.ts" time="3.721">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-6d6f3--displays-required-elements-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-6d6f3--displays-required-elements-chromium\attachments\final-page-9e73e81ad872e8e7ae1351417cbb3b8b486a8b28.png]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-6d6f3--displays-required-elements-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-6d6f3--displays-required-elements-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Login Page - Authentication Validation › TC_AUTH_002 - Empty login form displays validation errors" classname="login.spec.ts" time="3.751">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-54eb9--displays-validation-errors-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-54eb9--displays-validation-errors-chromium\attachments\final-page-e8d38ee513ef553aa8bc05768b8cb73994d2e5a4.png]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-54eb9--displays-validation-errors-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-54eb9--displays-validation-errors-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Login Page - Authentication Validation › TC_AUTH_003 - Expired session displays an error message" classname="login.spec.ts" time="6.601">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-c388d-n-displays-an-error-message-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-c388d-n-displays-an-error-message-chromium\attachments\final-page-629989610ac6f422961f3721d6c11a5ad5bb4fe4.png]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-c388d-n-displays-an-error-message-chromium\video.webm]]
+
+[[ATTACHMENT|..\test-results\login-Login-Page---Authent-c388d-n-displays-an-error-message-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

@@ -84,3 +84,17 @@ Thumbs.db
 # Local secrets
 *.pem
 *.key
+
+# Reviewer-facing Playwright evidence (raw traces remain excluded)
+!/execution-evidence/
+!/execution-evidence/screenshots/
+!/execution-evidence/screenshots/**
+!/execution-evidence/videos/
+!/execution-evidence/videos/**
+!/execution-evidence/playwright-report/
+!/execution-evidence/playwright-report/**
+!/execution-evidence/execution-summary.md
+execution-evidence/playwright-report/**/*.zip
+!/execution-evidence/historical-setup-failure-2026-11-24/
+!/execution-evidence/historical-setup-failure-2026-11-24/**
+execution-evidence/**/*.zip
