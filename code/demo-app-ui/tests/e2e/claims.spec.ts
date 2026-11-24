@@ -1,5 +1,8 @@
 import { test, expect } from './fixtures/test';
 
+// Authenticated traces can contain the seeded password in action snapshots.
+test.use({ trace: 'off' });
+
 test.describe('Insurance Claims - Claim Submission Wizard', () => {
   test.beforeEach(async ({ page, loginPage, claimsWizard }) => {
     await loginPage.signInAsClaimant();
@@ -36,6 +39,40 @@ test.describe('Insurance Claims - Claim Submission Wizard', () => {
     await expect(
       page.getByRole('heading', { name: 'Supporting Details' })
     ).toBeVisible();
+  });
+
+
+  test('TC_CLAIM_003 - Location shorter than five characters blocks Step 1', async ({ page, claimsWizard }) => {
+    await claimsWizard.fillIncidentDetails();
+    await page.locator('#incidentLocation').fill('NY');
+    await expect(page.locator('#incidentLocation')).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.locator('#incidentLocation-error')).toContainText('at least 5 characters');
+    await expect(page.getByTestId('wizard-step-1').getByRole('button', { name: 'Next', exact: true })).toBeDisabled();
+  });
+
+  test('TC_CLAIM_008 - Zero claim amount blocks Step 1', async ({ page, claimsWizard }) => {
+    await claimsWizard.fillIncidentDetails();
+    await page.locator('#claimAmount').fill('0');
+    await expect(page.locator('#claimAmount-error')).toContainText('at least $0.01');
+    await expect(page.getByTestId('wizard-step-1').getByRole('button', { name: 'Next', exact: true })).toBeDisabled();
+  });
+
+  test('TC_CLAIM_009 - Maximum allowed claim amount advances to Step 2', async ({ page, claimsWizard }) => {
+    await claimsWizard.fillIncidentDetails();
+    await page.locator('#claimAmount').fill('1000000');
+    const next = page.getByTestId('wizard-step-1').getByRole('button', { name: 'Next', exact: true });
+    await expect(next).toBeEnabled();
+    await next.click();
+    await expect(page.getByTestId('wizard-step-2')).toBeVisible();
+  });
+
+  test('TC_CLAIM_010 - Ten-character description meets the minimum boundary', async ({ page, claimsWizard }) => {
+    await claimsWizard.fillIncidentDetails();
+    await page.getByTestId('wizard-step-1').getByRole('button', { name: 'Next', exact: true }).click();
+    await expect(page.getByTestId('wizard-step-2')).toBeVisible();
+    await page.locator('#description').fill('1234567890');
+    await expect(page.locator('#description-counter')).toHaveText('10/1000');
+    await expect(page.getByTestId('wizard-step-2').getByRole('button', { name: 'Next', exact: true })).toBeEnabled();
   });
 
   test('TC_CLAIM_004 - Description validation prevents invalid input', async ({ page, claimsWizard }) => {

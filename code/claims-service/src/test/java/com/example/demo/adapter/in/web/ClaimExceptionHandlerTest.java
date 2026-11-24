@@ -31,15 +31,15 @@ class ClaimExceptionHandlerTest {
     }
 
     @Test
-    void should_Return400_When_UserNotFound() {
+    void should_Return404_When_UserNotFound() {
         UUID userId = UUID.randomUUID();
         var ex = new UserNotFoundException(userId);
 
         ProblemDetail detail = handler.handleUserNotFound(ex);
 
-        assertThat(detail.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-        assertThat(detail.getTitle()).isEqualTo("Validation Error");
-        assertThat(detail.getType()).isEqualTo(URI.create("https://example.com/validation-error"));
+        assertThat(detail.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+        assertThat(detail.getTitle()).isEqualTo("Not Found");
+        assertThat(detail.getType()).isEqualTo(URI.create("https://example.com/not-found"));
     }
 
     @Test

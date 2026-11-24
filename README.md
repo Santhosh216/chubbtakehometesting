@@ -58,10 +58,14 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for full details.
 
 ### Test Users
 
-| Role | Username | Password |
-|------|----------|----------|
-| Admin | `admin@demo.com` | `Admin123!` |
-| Claimant | `claimant@demo.com` | `Claimant123!` |
+| Role | Username |
+|------|----------|
+| Admin | `admin@demo.com` |
+| Claimant | `claimant@demo.com` |
+
+These are local seeded test accounts, not production users. Their passwords
+are defined by the local Keycloak realm configuration; supply test credentials
+through environment variables rather than source code or command-line logs.
 
 ---
 
@@ -127,16 +131,20 @@ You should see `"state": "RUNNING"` for both the connector and its task.
 
 ### What's already there
 
-The codebase ships with **unit tests** across all three tiers and scaffolding for more advanced testing types. The intent is that the QA team uses this as a starting point and builds out coverage from here.
+The assessment includes unit, API and authenticated UI automation. Current
+verification results are listed below; live Playwright tests require the local
+services and environment-supplied test credentials.
 
 | Layer | Framework | Status |
 |-------|-----------|--------|
-| Backend unit tests | JUnit 5, Mockito, AssertJ | Provided — some may need fixing |
-| Frontend unit tests | Vitest, Testing Library | Provided |
-| E2E tests | Playwright | Scaffolded — empty |
+| Claims Service unit tests | JUnit 5, Mockito, AssertJ | 150 passed |
+| BFF unit tests | JUnit 5, Mockito, AssertJ | 176 passed |
+| Frontend unit tests | Vitest, Testing Library | 25 files; 266 passed |
+| Claims UI tests | Playwright, TypeScript | 14 passed (10 claims, 4 authentication) |
+| Claims API tests | Playwright, AJV | 7 passed |
 | Contract tests | Pact | Scaffolded — empty |
 | Integration tests | Testcontainers | Scaffolded — empty |
-| Architecture tests | ArchUnit | Provided |
+| Architecture tests | ArchUnit | Included in Claims Service suite |
 
 ### What's been disabled
 
@@ -149,18 +157,6 @@ To keep the build simple and focused on the app itself, the following have been 
 | Postman collection generation | `skipPostmanGeneration=true` | Can be re-enabled |
 | Kafka schema validation | `kafka.producer.schema-validation.enabled=false` | Schema files exist in `asyncapi/schemas/` |
 | Checkstyle / PMD | Skipped in Docker build | Still runs locally via `mvn verify` |
-
-### QA team scope
-
-The app is a blank canvas for testing. Suggested areas:
-
-- Fix and extend unit tests (a broken test exists as a starting point)
-- Add integration tests using Testcontainers
-- Build out Pact contract tests between BFF and Claims Service
-- Write Playwright E2E tests for the main user journeys
-- Add load/performance tests (K6, Gatling, etc.)
-- Create a test strategy document
-- Write manual test scripts
 
 ### Run existing unit tests
 
@@ -176,8 +172,25 @@ cd code/demo-app-ui && npm test
 ### Run E2E tests (requires full stack running)
 
 ```bash
-cd code/demo-app-ui && npx playwright test
+cd code/demo-app-ui
+npx playwright test tests/e2e/login.spec.ts tests/e2e/claims.spec.ts tests/e2e/authenticated-login.spec.ts
 ```
+
+For authenticated UI tests, set `CHUBB_CLAIMANT_EMAIL` and
+`CHUBB_CLAIMANT_PASSWORD` in the shell. For live API tests, set
+`CHUBB_API_BASE_URL` and `CHUBB_API_TOKEN`, then run:
+
+```bash
+npx playwright test tests/e2e/api/claims.api.spec.ts
+```
+
+The verified 2026-11-23 Playwright JUnit reports are
+`code/demo-app-ui/test-evidence/playwright-ui-results-2026-11-23.xml` and
+`code/demo-app-ui/test-evidence/playwright-api-results-2026-11-23.xml`.
+The Vitest JSON report is
+`code/demo-app-ui/test-evidence/vitest-results-2026-11-23.json`.
+UI screenshots, videos and traces are captured under
+`code/demo-app-ui/test-results/`.
 
 ---
 

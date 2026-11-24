@@ -200,15 +200,12 @@ class AdminControllerTest {
         when(serviceAccountTokenProvider.getServiceAccountToken()).thenReturn("svc-token");
 
         try (MockedConstruction<DashboardApi> dashboardMock = mockConstruction(DashboardApi.class,
-                (mock, ctx) -> when(mock.getDashboardStats(false)).thenReturn(null)); // unused, just to init
+                (mock, ctx) -> org.mockito.Mockito.doThrow(new ApiException(403, "Forbidden"))
+                        .when(mock).flushDashboardCache());
              MockedConstruction<AdminClaimsApi> adminMock = mockConstruction(AdminClaimsApi.class);
              MockedConstruction<UsersApi> usersMock = mockConstruction(UsersApi.class)) {
 
             var controller = new AdminController("http://localhost:8081", serviceAccountTokenProvider, adminClaimResponseMapper);
-            // Get the constructed DashboardApi mock and configure it to throw on flushDashboardCache
-            var dashboardApiMock = dashboardMock.constructed().get(0);
-            org.mockito.Mockito.doThrow(new ApiException(403, "Forbidden")).when(dashboardApiMock).flushDashboardCache();
-
             var response = controller.flushDashboardCache();
 
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
@@ -399,14 +396,13 @@ class AdminControllerTest {
 
     @Test
     void should_ThrowIllegalStateException_When_FlushCache_Throws500() throws Exception {
-        try (MockedConstruction<DashboardApi> dashboardMock = mockConstruction(DashboardApi.class);
+        try (MockedConstruction<DashboardApi> dashboardMock = mockConstruction(DashboardApi.class,
+                     (mock, ctx) -> org.mockito.Mockito.doThrow(new ApiException(500, "Server Error"))
+                             .when(mock).flushDashboardCache());
              MockedConstruction<AdminClaimsApi> adminMock = mockConstruction(AdminClaimsApi.class);
              MockedConstruction<UsersApi> usersMock = mockConstruction(UsersApi.class)) {
 
             var controller = new AdminController("http://localhost:8081", serviceAccountTokenProvider, adminClaimResponseMapper);
-            var dashboardApiMock = dashboardMock.constructed().get(0);
-            org.mockito.Mockito.doThrow(new ApiException(500, "Server Error")).when(dashboardApiMock).flushDashboardCache();
-
             assertThatThrownBy(controller::flushDashboardCache)
                     .isInstanceOf(IllegalStateException.class);
         }

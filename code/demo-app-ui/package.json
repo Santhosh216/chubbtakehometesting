@@ -12,9 +12,9 @@
     "generate:stubs": "python3 ../../scripts/generate-wiremock-stubs.py ../bff-service/src/main/resources/openapi/bff-api.yml mocks/bff-stubs bff",
     "mock:bff": "./scripts/start-wiremock.sh 8080",
     "pretest": "npm run generate:api",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test": "node scripts/run-vitest.cjs run",
+    "test:watch": "node scripts/run-vitest.cjs",
+    "test:coverage": "node scripts/run-vitest.cjs run --coverage"
   },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-rc.0",

@@ -1,0 +1,53 @@
+<testsuites id="" name="" tests="7" failures="0" skipped="0" errors="0" time="1.9941879999999998">
+<testsuite name="api\claims.api.spec.ts" timestamp="2026-11-23T14:07:04.064Z" hostname="chromium" tests="7" failures="0" skipped="0" time="0.936" errors="0">
+<testcase name="Claims API contract (requires live stack) › API_001 - list claims has successful status and JSON response" classname="api\claims.api.spec.ts" time="0.353">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-evidence\api-playwright-artifacts\api-claims.api-Claims-API--92ae3-ul-status-and-JSON-response-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Claims API contract (requires live stack) › API_002 - missing authorization is rejected" classname="api\claims.api.spec.ts" time="0.038">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-evidence\api-playwright-artifacts\api-claims.api-Claims-API--22eba-g-authorization-is-rejected-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Claims API contract (requires live stack) › API_003 - invalid claim identifier is rejected or not found" classname="api\claims.api.spec.ts" time="0.075">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-evidence\api-playwright-artifacts\api-claims.api-Claims-API--5fc78-er-is-rejected-or-not-found-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Claims API contract (requires live stack) › API_004 - missing required fields are rejected" classname="api\claims.api.spec.ts" time="0.059">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-evidence\api-playwright-artifacts\api-claims.api-Claims-API--c5953-equired-fields-are-rejected-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Claims API contract (requires live stack) › API_005 - invalid claim amount is rejected" classname="api\claims.api.spec.ts" time="0.04">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-evidence\api-playwright-artifacts\api-claims.api-Claims-API--b8f4d-id-claim-amount-is-rejected-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Claims API contract (requires live stack) › API_006 - malformed JSON is rejected" classname="api\claims.api.spec.ts" time="0.141">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-evidence\api-playwright-artifacts\api-claims.api-Claims-API--be1ba--malformed-JSON-is-rejected-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Claims API contract (requires live stack) › API_007 - valid claim submission has successful status and response schema" classname="api\claims.api.spec.ts" time="0.23">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-evidence\api-playwright-artifacts\api-claims.api-Claims-API--f829a--status-and-response-schema-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

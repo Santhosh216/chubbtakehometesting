@@ -6,10 +6,11 @@ import com.example.bff.adapter.in.web.generated.model.ClaimStatusDTO;
 import com.example.bff.adapter.in.web.generated.model.DashboardStatsResponseDTO;
 import com.example.bff.adapter.in.web.generated.model.UpdateClaimStatusRequestDTO;
 import com.example.bff.adapter.in.web.generated.model.UserResponseDTO;
-import com.example.bff.adapter.out.claims.ApiClient;
 import com.example.bff.adapter.out.claims.ApiException;
+import com.example.bff.adapter.out.claims.ApiClient;
+import com.example.demo.adapter.out.claims.ClaimsServiceClientFactory;
 import com.example.demo.application.auth.ServiceAccountTokenProvider;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,32 +23,35 @@ import java.util.UUID;
 @RestController
 public class AdminController implements AdminDashboardApi {
 
-    private final com.example.bff.adapter.out.claims.generated.DashboardApi claimsDashboardApi;
-    private final com.example.bff.adapter.out.claims.generated.AdminClaimsApi claimsAdminClaimsApi;
-    private final com.example.bff.adapter.out.claims.generated.UsersApi claimsUsersApi;
-    private final ApiClient apiClient;
+    private final ClaimsServiceClientFactory clientFactory;
     private final ServiceAccountTokenProvider serviceAccountTokenProvider;
     private final AdminClaimResponseMapper adminClaimResponseMapper;
 
+    @Autowired
     public AdminController(
-            @Value("${claims-service.url}") String claimsServiceUrl,
+            ClaimsServiceClientFactory clientFactory,
             ServiceAccountTokenProvider serviceAccountTokenProvider,
             AdminClaimResponseMapper adminClaimResponseMapper) {
-        this.apiClient = new ApiClient();
-        this.apiClient.setBasePath(claimsServiceUrl);
-        this.claimsDashboardApi = new com.example.bff.adapter.out.claims.generated.DashboardApi(apiClient);
-        this.claimsAdminClaimsApi = new com.example.bff.adapter.out.claims.generated.AdminClaimsApi(apiClient);
-        this.claimsUsersApi = new com.example.bff.adapter.out.claims.generated.UsersApi(apiClient);
+        this.clientFactory = clientFactory;
         this.serviceAccountTokenProvider = serviceAccountTokenProvider;
         this.adminClaimResponseMapper = adminClaimResponseMapper;
+    }
+
+    AdminController(String claimsServiceUrl,
+                    ServiceAccountTokenProvider serviceAccountTokenProvider,
+                    AdminClaimResponseMapper adminClaimResponseMapper) {
+        this(new ClaimsServiceClientFactory(new ApiClient().setBasePath(claimsServiceUrl)),
+                serviceAccountTokenProvider,
+                adminClaimResponseMapper);
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DashboardStatsResponseDTO> getDashboardStats(Optional<Boolean> bypassCache) {
-        setServiceAccountBearerToken();
         try {
-            var claimsResponse = claimsDashboardApi.getDashboardStats(bypassCache.orElse(false));
+            var client = clientFactory.create(serviceAccountTokenProvider.getServiceAccountToken());
+            var claimsResponse = new com.example.bff.adapter.out.claims.generated.DashboardApi(client)
+                    .getDashboardStats(bypassCache.orElse(false));
             var response = new DashboardStatsResponseDTO()
                     .totalUsers(claimsResponse.getTotalUsers())
                     .totalClaims(claimsResponse.getTotalClaims())
@@ -66,9 +70,9 @@ public class AdminController implements AdminDashboardApi {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> flushDashboardCache() {
-        setServiceAccountBearerToken();
         try {
-            claimsDashboardApi.flushDashboardCache();
+            var client = clientFactory.create(serviceAccountTokenProvider.getServiceAccountToken());
+            new com.example.bff.adapter.out.claims.generated.DashboardApi(client).flushDashboardCache();
             return ResponseEntity.noContent().build();
         } catch (ApiException exception) {
             if (exception.getCode() == 403) {
@@ -81,9 +85,9 @@ public class AdminController implements AdminDashboardApi {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponseDTO>> listAllUsers() {
-        setUserBearerToken();
         try {
-            var claimsResponse = claimsUsersApi.listAllUsers();
+            var claimsResponse = new com.example.bff.adapter.out.claims.generated.UsersApi(createUserApiClient())
+                    .listAllUsers();
             var response = claimsResponse.stream()
                     .map(user -> new UserResponseDTO()
                             .userId(user.getUserId())
@@ -104,13 +108,14 @@ public class AdminController implements AdminDashboardApi {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ClaimResponseDTO>> listAllClaims(Optional<ClaimStatusDTO> status, Optional<UUID> userId) {
-        setServiceAccountBearerToken();
         try {
+            var client = clientFactory.create(serviceAccountTokenProvider.getServiceAccountToken());
             com.example.bff.adapter.out.claims.generated.model.ClaimStatusDTO claimsStatus =
                     status.map(s -> com.example.bff.adapter.out.claims.generated.model.ClaimStatusDTO.fromValue(s.getValue()))
                             .orElse(null);
 
-            var claimsResponse = claimsAdminClaimsApi.listAllClaims(claimsStatus, userId.orElse(null));
+            var claimsResponse = new com.example.bff.adapter.out.claims.generated.AdminClaimsApi(client)
+                    .listAllClaims(claimsStatus, userId.orElse(null));
             return ResponseEntity.ok(adminClaimResponseMapper.toClaimResponseList(claimsResponse));
         } catch (ApiException exception) {
             if (exception.getCode() == 403) {
@@ -123,13 +128,14 @@ public class AdminController implements AdminDashboardApi {
     @Override
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ClaimResponseDTO> updateClaimStatus(UUID claimId, UpdateClaimStatusRequestDTO updateClaimStatusRequestDTO) {
-        setUserBearerToken();
         try {
+            var client = createUserApiClient();
             var claimsRequest = new com.example.bff.adapter.out.claims.generated.model.UpdateClaimStatusRequestDTO()
                     .newStatus(com.example.bff.adapter.out.claims.generated.model.ClaimStatusDTO.fromValue(
                             updateClaimStatusRequestDTO.getNewStatus().getValue()));
 
-            var claimsResponse = claimsAdminClaimsApi.updateClaimStatus(claimId, claimsRequest);
+            var claimsResponse = new com.example.bff.adapter.out.claims.generated.AdminClaimsApi(client)
+                    .updateClaimStatus(claimId, claimsRequest);
             return ResponseEntity.ok(adminClaimResponseMapper.toClaimResponse(claimsResponse));
         } catch (ApiException exception) {
             if (exception.getCode() == 400) {
@@ -145,16 +151,11 @@ public class AdminController implements AdminDashboardApi {
         }
     }
 
-    private void setServiceAccountBearerToken() {
-        String token = serviceAccountTokenProvider.getServiceAccountToken();
-        apiClient.setBearerToken(token);
-    }
-
-    private void setUserBearerToken() {
+    private ApiClient createUserApiClient() {
         var authentication = org.springframework.security.core.context.SecurityContextHolder
                 .getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.oauth2.jwt.Jwt jwt) {
-            apiClient.setBearerToken(jwt.getTokenValue());
+            return clientFactory.create(jwt.getTokenValue());
         } else {
             throw new IllegalStateException("No user JWT token found in security context");
         }

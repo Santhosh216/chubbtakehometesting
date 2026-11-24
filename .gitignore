@@ -62,6 +62,9 @@ playwright-report/
 blob-report/
 **/blob-report/
 
+# API traces can contain live Authorization bearer tokens
+code/demo-app-ui/test-evidence/api-playwright-artifacts/
+
 # Coverage reports
 coverage/
 **/coverage/

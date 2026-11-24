@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -12,10 +12,19 @@ import {
 import { useAuthStore } from '@/src/features/auth/stores/use-auth-store';
 import { PasswordField } from '@/src/features/auth/components/password-field';
 
+const subscribeToHydration = () => () => {};
+const getHydrationSnapshot = () => true;
+const getServerHydrationSnapshot = () => false;
+
 export default function LoginPage() {
   const router = useRouter();
   const login = useAuthStore((s) => s.login);
   const [serverError, setServerError] = useState('');
+  const isHydrated = useSyncExternalStore(
+    subscribeToHydration,
+    getHydrationSnapshot,
+    getServerHydrationSnapshot
+  );
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -83,7 +92,7 @@ export default function LoginPage() {
         </p>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate data-testid="login-form">
+      <form method="post" onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate data-testid="login-form">
         <div className="space-y-1">
           <label htmlFor="email" className="block text-sm font-medium text-text-secondary">
             Email
@@ -113,7 +122,7 @@ export default function LoginPage() {
 
         <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={!isHydrated || isSubmitting}
           className="w-full rounded-lg bg-primary px-4 py-2 font-medium text-on-primary transition-colors hover:bg-primary-hover active:bg-primary-active disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isSubmitting ? 'Logging in...' : 'Log In'}

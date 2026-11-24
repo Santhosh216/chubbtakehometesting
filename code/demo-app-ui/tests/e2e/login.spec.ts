@@ -1,7 +1,6 @@
 import { test, expect } from './fixtures/test';
 
 test.describe('Login Page - Authentication Validation', () => {
-
   test.beforeEach(async ({ page }) => {
     await page.goto('/login');
   });
@@ -42,16 +41,4 @@ test.describe('Login Page - Authentication Validation', () => {
 
     await expect(page).toHaveURL(/\/login$/);
   });
-
-  test('TC_AUTH_004 - Claimant successfully logs in and accesses claims page', async ({ page, loginPage }) => {
-  await loginPage.signInAsClaimant();
-
-  await expect(page).toHaveURL(/\/claims(?:\/)?$/, {
-    timeout: 15000,
-  });
-
-  await expect(page.getByRole('heading', { name: /My Claims/i }))
-    .toBeVisible();
-  });
-
 });

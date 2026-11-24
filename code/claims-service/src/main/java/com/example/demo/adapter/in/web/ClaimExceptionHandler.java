@@ -21,9 +21,9 @@ public class ClaimExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ProblemDetail handleUserNotFound(UserNotFoundException exception) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                HttpStatus.BAD_REQUEST, exception.getMessage());
-        problemDetail.setTitle("Validation Error");
-        problemDetail.setType(errorTypes.validationError());
+                HttpStatus.NOT_FOUND, exception.getMessage());
+        problemDetail.setTitle("Not Found");
+        problemDetail.setType(errorTypes.notFound());
         return problemDetail;
     }
 

@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import com.example.bff.adapter.out.claims.ApiClient;
+import com.example.demo.adapter.out.claims.ClaimsServiceClientFactory;
 import com.example.demo.adapter.out.http.CorrelationIdInterceptor;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,11 @@ public class TestRestClientConfig {
         ApiClient apiClient = new ApiClient();
         apiClient.setBasePath("http://localhost:8080");
         return apiClient;
+    }
+
+    @Bean
+    public ClaimsServiceClientFactory claimsServiceClientFactory(ApiClient apiClient) {
+        return new ClaimsServiceClientFactory(apiClient);
     }
 
     @Bean
